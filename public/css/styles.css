@@ -1,0 +1,11 @@
+*{
+    font-family: 'Comfortaa', cursive;
+    box-sizing: border-box;
+}
+button:focus{
+    outline: none !important;
+}
+.feather.active{
+    fill: currentColor;
+}
+
