@@ -4,11 +4,24 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+// import axios from 'axios'
+// import VueAxios from 'vue-axios'
+require('./bootstrap');
 window.Vue = require('vue');
 import 'vue-loaders/dist/vue-loaders.css';
 import VueLoaders from 'vue-loaders';
+import 'sweetalert2/dist/sweetalert2.min.css';
+import VueSweetalert2 from 'vue-sweetalert2';
+import VueTailwindModal from 'vue-tailwind-modal'
+
+
+
+
+Vue.use(VueTailwindModal);
+Vue.use(require('vue-moment'));
+Vue.use(VueLoaders);
+Vue.use(require('vue-resource'));
+Vue.use(VueSweetalert2);
 
 
 /**
@@ -19,15 +32,14 @@ import VueLoaders from 'vue-loaders';
  * Eg. ./components/TwitterApp.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-Vue.use(VueAxios, axios);
-Vue.use(require('vue-moment'));
-Vue.use(VueLoaders);
+
+
 Vue.component('twitter-app', require('./components/TwitterApp.vue').default);
 Vue.component('navbar-component', require('./components/Navbar.vue').default);
 Vue.component('footer-component', require('./components/Footer.vue').default);
+Vue.component('modal', require('./components/Modal.vue').default);
 Vue.component('tweet', require('./components/Tweet.vue').default);
+Vue.component('InfiniteLoading', require('vue-infinite-loading'));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

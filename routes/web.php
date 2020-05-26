@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::post('/new/tweet', 'TweetController@create');
+Route::post('/like/tweet', 'LikeController@likeTweet');
 
 Auth::routes();
 

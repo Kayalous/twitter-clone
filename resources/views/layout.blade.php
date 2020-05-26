@@ -6,6 +6,11 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Twitter</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+    />
+    @yield("libraryCSS")
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/styles.css') }}" rel="stylesheet">
     <script src="/js/app.js" defer></script>
@@ -17,6 +22,7 @@
             min-height: calc(100vh - 192px);
         }
     </style>
+
 </head>
 <body class="bg-gray-800">
 
@@ -30,6 +36,9 @@
 
 <script>
     feather.replace()
+    window.Laravel = <?php echo json_encode([
+        'csrfToken' => csrf_token(),
+    ]); ?>
 </script>
 </body>
 </html>
