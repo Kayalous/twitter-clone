@@ -19,13 +19,19 @@
                                 <input type="file" class="hidden" id="attachment" v-on:change="onImageChange">
                             </label>
                     </div>
-                    <button type="submit" class="bg-blue-400 hover:bg-blue-700 text-white font-semibold py-2 px-8 rounded-full transition ease-in-out duration-100 outline-none border-none my-auto" :class="disableSubmission ? 'disabled' : '' " :disabled="disableSubmission">Tweet</button>
+                    <button type="submit" class="bg-blue-400 hover:bg-blue-700 text-white font-semibold py-2 px-8 rounded-full transition ease-in-out duration-100 outline-none border-none my-auto" :class="disableSubmission ? 'disabled' : '' " :disabled="disableSubmission">
+                       <span v-if="!submitButtonLoading">
+                           Tweet
+                       </span>
+                        <vue-loaders name="ball-beat" color="white" scale="1" v-if="submitButtonLoading" style="margin: auto !important;"></vue-loaders>
+
+                    </button>
                 </div>
             </form>
             <div v-if="!user">
                 <h1 class="text-gray-500 text-center text-5xl my-12">You need to be logged in to post a tweet.</h1>
             </div>
-            <div class="all-tweets flex justify-center align-middle w-full h-full flex-col">
+            <div class="all-tweets flex justify-center align-middle w-full flex-col" id="all-tweets">
                 <template v-for="tweet in tweets" v-if="tweetsLoaded">
                     <tweet :tweet="tweet" :liked="tweet.isLiked" ></tweet>
                 </template>
@@ -58,7 +64,8 @@
                 endReached: false,
                 percentCompleted: 0,
                 attachment: '',
-                disableSubmission: true
+                disableSubmission: true,
+                submitButtonLoading: false
             };
         },
         props: {
@@ -67,25 +74,28 @@
         methods: {
             newTweet(e) {
                 e.preventDefault();
+                this.submitButtonLoading = true;
                 this.$http.post('/new/tweet', {
                     body: this.body.trim(),
                     _token: window.Laravel.csrfToken,
                     attachment: this.attachment
                 })
                 .then((res)=>{
-                    this.tweets.unshift(res.body.tweet);
                     this.body = "";
                     this.attachment = "";
+                    this.tweets = [];
+                    this.page = 1;
+                    document.querySelector("#all-tweets").scrollIntoView();
                 })
-                .catch((err) => {console.log(err)}
-            );
+                .catch((err) => {console.log(err)
+                }
+            ).finally(()=> {this.submitButtonLoading = false;})
             },
             infiniteHandler($state) {
                 this.$http.get('/api/get/tweets/all?page='+this.page+"&user_id="+this.safeGetUserId())
                     .then(response => {
                         return response.json();
                     }).then(data => {
-                            console.log(data.data);
                         if(data.data.length === 0) {
                             this.continueInfiniteLoading = false;
                             this.endReached = true;

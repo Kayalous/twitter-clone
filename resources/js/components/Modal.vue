@@ -5,7 +5,7 @@
             class="fixed inset-0 w-full h-screen flex items-center justify-center bg-smoke z-50"
             @click.self="close"
         >
-            <div class="relative max-h-screen w-10/12  shadow-lg rounded-lg p-8 flex">
+            <div class="relative max-h-screen w-screen  shadow-lg rounded-lg p-8 flex">
                 <div class="overflow-auto max-h-screen w-full">
                     <slot />
                 </div>

@@ -2042,6 +2042,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     feather.replace();
@@ -2307,6 +2308,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     feather.replace(); // this.getTweets()
@@ -2321,7 +2328,8 @@ __webpack_require__.r(__webpack_exports__);
       endReached: false,
       percentCompleted: 0,
       attachment: '',
-      disableSubmission: true
+      disableSubmission: true,
+      submitButtonLoading: false
     };
   },
   props: {
@@ -2332,17 +2340,21 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       e.preventDefault();
+      this.submitButtonLoading = true;
       this.$http.post('/new/tweet', {
         body: this.body.trim(),
         _token: window.Laravel.csrfToken,
         attachment: this.attachment
       }).then(function (res) {
-        _this.tweets.unshift(res.body.tweet);
-
         _this.body = "";
         _this.attachment = "";
+        _this.tweets = [];
+        _this.page = 1;
+        document.querySelector("#all-tweets").scrollIntoView();
       })["catch"](function (err) {
         console.log(err);
+      })["finally"](function () {
+        _this.submitButtonLoading = false;
       });
     },
     infiniteHandler: function infiniteHandler($state) {
@@ -2351,8 +2363,6 @@ __webpack_require__.r(__webpack_exports__);
       this.$http.get('/api/get/tweets/all?page=' + this.page + "&user_id=" + this.safeGetUserId()).then(function (response) {
         return response.json();
       }).then(function (data) {
-        console.log(data.data);
-
         if (data.data.length === 0) {
           _this2.continueInfiniteLoading = false;
           _this2.endReached = true;
@@ -2490,7 +2500,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.dropdown[data-v-6dde423b]{\n    position: absolute;\n    width: 100%;\n    right: 0;\n    top: 100%;\n    margin-top: 13px;\n}\n.dropdown[data-v-6dde423b]::before{\n    content: \"\";\n    position: absolute;\n    top: -10px;\n    right: 0;\n    margin-right: 20px;\n    width: 0;\n    height: 0;\n    border-left: 10px solid transparent;\n    border-right: 10px solid transparent;\n    border-bottom: 10px solid rgba(74, 85, 104,1);\n}\n", ""]);
+exports.push([module.i, "\n.dropdown[data-v-6dde423b]{\n    position: absolute;\n    width: 100%;\n    right: 0;\n    top: 100%;\n    margin-top: 13px;\n    opacity: 1;\n}\n.dropdown[data-v-6dde423b]::before{\n    content: \"\";\n    position: absolute;\n    top: -10px;\n    right: 0;\n    margin-right: 20px;\n    width: 0;\n    height: 0;\n    border-left: 10px solid transparent;\n    border-right: 10px solid transparent;\n    border-bottom: 10px solid rgba(74, 85, 104,1);\n}\n", ""]);
 
 // exports
 
@@ -24113,7 +24123,7 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "relative max-h-screen w-10/12  shadow-lg rounded-lg p-8 flex"
+                  "relative max-h-screen w-screen  shadow-lg rounded-lg p-8 flex"
               },
               [
                 _c(
@@ -24254,7 +24264,7 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "dropdown bg-gray-700 border-gray-700 rounded-lg flex flex-no-wrap flex-col py-4 transition ease-in-out duration-100"
+                          "dropdown bg-gray-700 border-gray-700 rounded-lg flex flex-no-wrap flex-col py-4 transition ease-in-out duration-100 z-40"
                       },
                       [
                         _c(
@@ -24683,12 +24693,12 @@ var render = function() {
                   "div",
                   {
                     staticClass:
-                      "tweet-attachments relative overflow-hidden rounded-md",
+                      "tweet-attachments relative overflow-scroll rounded-md ",
                     staticStyle: { "padding-bottom": "66.66%" }
                   },
                   [
                     _c("img", {
-                      staticClass: "absolute w-full h-full object-cover",
+                      staticClass: "absolute w-full h-auto",
                       attrs: { src: _vm.tweet.attachment, alt: "Attachment" },
                       on: { click: _vm.toggleModal }
                     })
@@ -24890,7 +24900,27 @@ var render = function() {
                       class: _vm.disableSubmission ? "disabled" : "",
                       attrs: { type: "submit", disabled: _vm.disableSubmission }
                     },
-                    [_vm._v("Tweet")]
+                    [
+                      !_vm.submitButtonLoading
+                        ? _c("span", [
+                            _vm._v(
+                              "\n                       Tweet\n                   "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.submitButtonLoading
+                        ? _c("vue-loaders", {
+                            staticStyle: { margin: "auto !important" },
+                            attrs: {
+                              name: "ball-beat",
+                              color: "white",
+                              scale: "1"
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
                   )
                 ]
               )
@@ -24912,7 +24942,8 @@ var render = function() {
         "div",
         {
           staticClass:
-            "all-tweets flex justify-center align-middle w-full h-full flex-col"
+            "all-tweets flex justify-center align-middle w-full flex-col",
+          attrs: { id: "all-tweets" }
         },
         [
           _vm._l(_vm.tweets, function(tweet) {
@@ -44809,15 +44840,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*********************************************!*\
   !*** ./resources/js/components/Profile.vue ***!
   \*********************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Profile_vue_vue_type_template_id_3bd692e4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Profile.vue?vue&type=template&id=3bd692e4& */ "./resources/js/components/Profile.vue?vue&type=template&id=3bd692e4&");
 /* harmony import */ var _Profile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Profile.vue?vue&type=script&lang=js& */ "./resources/js/components/Profile.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _Profile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _Profile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -44847,7 +44877,7 @@ component.options.__file = "resources/js/components/Profile.vue"
 /*!**********************************************************************!*\
   !*** ./resources/js/components/Profile.vue?vue&type=script&lang=js& ***!
   \**********************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -45056,8 +45086,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Abdu\Documents\Web\laravel-development\twitter\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Abdu\Documents\Web\laravel-development\twitter\resources\css\app.css */"./resources/css/app.css");
+__webpack_require__(/*! /Users/k/Documents/Web/backend/Twitter/twitter/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/k/Documents/Web/backend/Twitter/twitter/resources/css/app.css */"./resources/css/app.css");
 
 
 /***/ }),

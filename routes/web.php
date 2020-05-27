@@ -20,7 +20,14 @@ Route::get('/u/{handle}', function ($handle) {
     $user = \App\User::where('handle', $handle)->first();
     return view('profile', ['user' => $user]);
 });
+Route::get('/manage/profile', function () {
+    return view('manage-profile');
+});
+
 Route::get('/logout', 'Auth\LoginController@logout');
+
+
+
 Route::post('/new/tweet', 'TweetController@create');
 Route::post('/like/tweet', 'LikeController@likeTweet');
 

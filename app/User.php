@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'handle'
+        'name', 'email', 'password', 'handle', 'avatar'
     ];
 
     /**
@@ -36,6 +36,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'avatar' => 'https://picsum.photos/200'
+    ];
+
+
     public function tweets(){
         return $this->hasMany(Tweet::class);
     }
