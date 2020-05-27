@@ -38,7 +38,6 @@ class TweetController extends Controller
 
     public function getAll(Request $request){
         $tweets = Tweet::with(['user', 'likedBy'])->orderBy('created_at', 'desc')->paginate(10);
-//        dd($tweets);
         foreach ($tweets as $tweet){
             if(!$request['user_id'])
                 $isLiked = false;
@@ -48,9 +47,9 @@ class TweetController extends Controller
         }
         return response()->json($tweets);
     }
+
     public function getUserTweets(Request $request){
         $tweets = Tweet::where('user_id', $request['tweeter_id'])->with(['user', 'likedBy'])->orderBy('created_at', 'desc')->paginate(10);
-//        dd($tweets);
         foreach ($tweets as $tweet){
             if(!$request['user_id'])
                 $isLiked = false;

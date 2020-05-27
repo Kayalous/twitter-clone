@@ -4,8 +4,8 @@
 
     <div class="tweet cursor-pointer rounded-lg hover:bg-blue-800 hover:bg-opacity-25 px-6 py-4 my-5 transition ease-in-out duration-100 animate__animated animate__fadeIn animate__faster">
         <div class="poster-info flex flex-no-wrap align-middle">
-            <div class="w-16 h-16 rounded-full bg-indigo-900 mx-2 overflow-hidden">
-                <img class="w-full h-auto" :src="tweet.user.avatar" alt="Profile image">
+            <div class="w-16 h-16 rounded-full bg-indigo-900 mx-2 overflow-hidden flex">
+                <img class="w-full h-auto object-cover" :src="tweet.user.avatar" alt="Profile image">
             </div>
             <div class="poster">
                 <a :href="'/u/' + tweet.user.handle" class="text-white inline-block font-semibold"><span class="hover:underline">{{tweet.user.name}}</span> <span class="text-gray-600 font-normal">{{tweet.user.handle}} · </span></a>
@@ -49,7 +49,7 @@
 <script>
     export default {
         mounted() {
-            feather.replace()
+            feather.replace();
         },
         data(){
             return{
@@ -71,6 +71,7 @@
                         this.likeCount--;
                     this.$http.post('/like/tweet', {
                         tweet_id: id,
+                        user_id: this.$parent.user.id,
                         _token: window.Laravel.csrfToken,
                     })
                         .then((res)=>{

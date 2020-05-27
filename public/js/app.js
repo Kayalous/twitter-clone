@@ -2239,6 +2239,7 @@ __webpack_require__.r(__webpack_exports__);
         if (this.liked) this.likeCount++;else this.likeCount--;
         this.$http.post('/like/tweet', {
           tweet_id: id,
+          user_id: this.$parent.user.id,
           _token: window.Laravel.csrfToken
         }).then(function (res) {
           console.log(res.body);
@@ -24211,11 +24212,11 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "w-16 h-16 rounded-full bg-indigo-900 mx-2 overflow-hidden"
+                          "w-16 h-16 rounded-full bg-indigo-900 mx-2 overflow-hidden flex"
                       },
                       [
                         _c("img", {
-                          staticClass: "w-full h-auto",
+                          staticClass: "w-full h-auto object-cover",
                           attrs: { src: _vm.user.avatar, alt: "Profile image" }
                         })
                       ]
@@ -24399,11 +24400,11 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "h-32 w-32 md:h-48 md:w-48 lg:h-64 lg:w-64 mx-auto my-5 md:mx-0 rounded-full bg-indigo-900 overflow-hidden border-2 border-white border-opacity-50"
+                    "flex h-32 w-32 md:h-48 md:w-48 lg:h-64 lg:w-64 mx-auto my-5 md:mx-0 rounded-full bg-indigo-900 overflow-hidden border-2 border-white border-opacity-50"
                 },
                 [
                   _c("img", {
-                    staticClass: "w-full h-auto",
+                    staticClass: "w-full h-auto object-cover",
                     attrs: { src: _vm.tweeter.avatar, alt: "Profile image" }
                   })
                 ]
@@ -24561,11 +24562,11 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "w-16 h-16 rounded-full bg-indigo-900 mx-2 overflow-hidden"
+                    "w-16 h-16 rounded-full bg-indigo-900 mx-2 overflow-hidden flex"
                 },
                 [
                   _c("img", {
-                    staticClass: "w-full h-auto",
+                    staticClass: "w-full h-auto object-cover",
                     attrs: { src: _vm.tweet.user.avatar, alt: "Profile image" }
                   })
                 ]
@@ -24779,11 +24780,11 @@ var render = function() {
                     "div",
                     {
                       staticClass:
-                        "w-16 h-16 md:w-24 md:h-24 rounded-full bg-indigo-900 mx-2 overflow-hidden"
+                        "w-16 h-16 md:w-24 md:h-24 rounded-full bg-indigo-900 mx-2 overflow-hidden flex"
                     },
                     [
                       _c("img", {
-                        staticClass: "w-full h-auto",
+                        staticClass: "w-full h-auto object-cover",
                         attrs: { src: _vm.user.avatar, alt: "Profile image" }
                       })
                     ]
@@ -45086,8 +45087,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/k/Documents/Web/backend/Twitter/twitter/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/k/Documents/Web/backend/Twitter/twitter/resources/css/app.css */"./resources/css/app.css");
+__webpack_require__(/*! C:\Users\Abdu\Documents\Web\laravel-development\twitter\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Abdu\Documents\Web\laravel-development\twitter\resources\css\app.css */"./resources/css/app.css");
 
 
 /***/ }),

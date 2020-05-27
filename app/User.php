@@ -46,7 +46,6 @@ class User extends Authenticatable
         'avatar' => 'https://picsum.photos/200'
     ];
 
-
     public function tweets(){
         return $this->hasMany(Tweet::class);
     }

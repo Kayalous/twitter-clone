@@ -32,8 +32,8 @@
                 </li>
                 <li class="flex justify-center align-middle relative" v-if="user">
                     <button class="bg-transparent border-0 flex flex-no-wrap justify-center align-middle rounded-lg hover:bg-gray-700 px-4 py-2" @click="toggleDropdown">
-                        <div class="w-16 h-16 rounded-full bg-indigo-900 mx-2 overflow-hidden">
-                            <img class="w-full h-auto" :src="user.avatar" alt="Profile image">
+                        <div class="w-16 h-16 rounded-full bg-indigo-900 mx-2 overflow-hidden flex">
+                            <img class="w-full h-auto object-cover" :src="user.avatar" alt="Profile image">
                         </div>
                         <div class="flex flex-col my-auto">
                             <span class="text-white font-bold text-left">

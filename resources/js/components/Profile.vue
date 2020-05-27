@@ -3,8 +3,8 @@
     <div class="container mx-auto">
         <div class="flex flex-col flex-no-wrap justify-center align-middle w-full py-5 my-3">
             <div class="flex flex-col md:flex-row flex-no-wrap w-full">
-                <div class="h-32 w-32 md:h-48 md:w-48 lg:h-64 lg:w-64 mx-auto my-5 md:mx-0 rounded-full bg-indigo-900 overflow-hidden border-2 border-white border-opacity-50">
-                    <img class="w-full h-auto" :src="tweeter.avatar" alt="Profile image">
+                <div class="flex h-32 w-32 md:h-48 md:w-48 lg:h-64 lg:w-64 mx-auto my-5 md:mx-0 rounded-full bg-indigo-900 overflow-hidden border-2 border-white border-opacity-50">
+                    <img class="w-full h-auto object-cover" :src="tweeter.avatar" alt="Profile image">
                 </div>
                 <div class="flex align-middle flex-grow my-auto px-5">
                     <div class="tweeter-info text-left">
