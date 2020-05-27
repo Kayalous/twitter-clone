@@ -45,7 +45,7 @@
                         <i class="my-auto ml-3 text-white my-auto" style="width: 30px; height: 30px; stroke-width: 1" data-feather="chevron-down"></i>
                     </button>
                     <div class="dropdown bg-gray-700 border-gray-700 rounded-lg flex flex-no-wrap flex-col py-4 transition ease-in-out duration-100" v-if="dropdownExpanded">
-                        <a class="text-white mx-3 px-3 my-1 py-3 text-center rounded-lg hover:bg-gray-600 flex flex-no-wrap transition ease-in-out duration-100" href="/logout"><i class="mr-3 text-white" style="stroke-width: 1; fill: currentColor; stroke: transparent; opacity: 0.5;" data-feather="user"></i> <span class="mx-auto">Profile</span></a>
+                        <a class="text-white mx-3 px-3 my-1 py-3 text-center rounded-lg hover:bg-gray-600 flex flex-no-wrap transition ease-in-out duration-100" :href="'/u/' + this.user.handle"><i class="mr-3 text-white" style="stroke-width: 1; fill: currentColor; stroke: transparent; opacity: 0.5;" data-feather="user"></i> <span class="mx-auto">Profile</span></a>
                         <a class="text-white mx-3 px-3 my-1 py-3 text-center rounded-lg hover:bg-gray-600 flex flex-no-wrap transition ease-in-out duration-100" href="/logout"><i class="mr-3 text-white" style="stroke-width: 1" data-feather="log-out"></i> <span class="mx-auto">Logout</span></a>
                     </div>
                 </li>

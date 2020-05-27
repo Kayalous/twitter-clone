@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/get/tweets/all', 'TweetController@getAll');
+Route::get('/get/tweets/user', 'TweetController@getUserTweets');

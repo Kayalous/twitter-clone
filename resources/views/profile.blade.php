@@ -3,5 +3,5 @@
 
 @endsection
 @section("content")
-    <twitter-app :user='@json(Auth::user())'></twitter-app>
+    <profile :tweeter='@json($user)' :user='@json(Auth::user())'></profile>
 @endsection

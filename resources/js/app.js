@@ -38,6 +38,7 @@ Vue.component('twitter-app', require('./components/TwitterApp.vue').default);
 Vue.component('navbar-component', require('./components/Navbar.vue').default);
 Vue.component('footer-component', require('./components/Footer.vue').default);
 Vue.component('modal', require('./components/Modal.vue').default);
+Vue.component('profile', require('./components/Profile.vue').default);
 Vue.component('tweet', require('./components/Tweet.vue').default);
 Vue.component('InfiniteLoading', require('vue-infinite-loading'));
 

@@ -8,7 +8,7 @@
                 <img class="w-full h-auto" :src="tweet.user.avatar" alt="Profile image">
             </div>
             <div class="poster">
-                <a href="/@test" class="text-white inline-block font-semibold"><span class="hover:underline">{{tweet.user.name}}</span> <span class="text-gray-600 font-normal">{{tweet.user.handle}} · </span></a>
+                <a :href="'/u/' + tweet.user.handle" class="text-white inline-block font-semibold"><span class="hover:underline">{{tweet.user.name}}</span> <span class="text-gray-600 font-normal">{{tweet.user.handle}} · </span></a>
                 <a href="/@test/status/8625634" class="inline-block text-gray-600">{{ tweet.created_at | moment("from") }}</a>
             </div>
         </div>

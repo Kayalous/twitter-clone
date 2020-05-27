@@ -2,7 +2,7 @@
     <Transition name="fade">
         <div
             v-if="showing"
-            class="fixed inset-0 w-full h-screen flex items-center justify-center bg-smoke-400"
+            class="fixed inset-0 w-full h-screen flex items-center justify-center bg-smoke z-50"
             @click.self="close"
         >
             <div class="relative max-h-screen w-10/12  shadow-lg rounded-lg p-8 flex">
@@ -43,6 +43,7 @@
     .fade-leave-active {
         transition: all 0.6s;
     }
+
     .fade-enter,
     .fade-leave-to {
         opacity: 0;
