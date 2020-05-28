@@ -32,7 +32,7 @@
                 <h1 class="text-gray-500 text-center text-5xl my-12">You need to be logged in to post a tweet.</h1>
             </div>
             <div class="all-tweets flex justify-center align-middle w-full flex-col" id="all-tweets">
-                <template v-for="tweet in tweets" v-if="tweetsLoaded">
+                <template v-for="tweet in tweets" v-if="tweetsLoaded" v-model="tweets">
                     <tweet :tweet="tweet" :liked="tweet.isLiked" ></tweet>
                 </template>
                 <vue-loaders name="ball-grid-pulse" color="#63B3ED" scale="1" v-if="!tweetsLoaded" style="margin-right: auto !important; margin-left: auto !important; margin-top: 6rem; margin-bottom: 6rem"></vue-loaders>
