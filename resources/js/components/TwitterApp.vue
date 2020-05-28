@@ -33,7 +33,7 @@
             </div>
             <div class="all-tweets flex justify-center align-middle w-full flex-col" id="all-tweets">
                 <template v-for="tweet in tweets" v-if="tweetsLoaded" v-model="tweets">
-                    <tweet :tweet="tweet" :liked="tweet.isLiked" ></tweet>
+                    <tweet :tweet="tweet"></tweet>
                 </template>
                 <vue-loaders name="ball-grid-pulse" color="#63B3ED" scale="1" v-if="!tweetsLoaded" style="margin-right: auto !important; margin-left: auto !important; margin-top: 6rem; margin-bottom: 6rem"></vue-loaders>
 
@@ -85,7 +85,7 @@
                     this.attachment = "";
                     this.tweets = [];
                     this.page = 1;
-                    document.querySelector("#all-tweets").scrollIntoView();
+                    this.infiniteHandler(null);
                 })
                 .catch((err) => {console.log(err)
                 }
@@ -103,7 +103,7 @@
                         }
                     data.data.forEach(tweet =>{
                         this.tweets.push(tweet)});
-                    $state.loaded();
+                        if($state) $state.loaded();
                 });
 
                 this.tweetsLoaded = true;

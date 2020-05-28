@@ -13,4 +13,7 @@ class Tweet extends Model
     public function likedBy(){
         return $this->belongsToMany('App\User', 'likes', 'tweet_id', 'user_id');
     }
+    public function replies(){
+        return $this->hasMany(Reply::class);
+    }
 }

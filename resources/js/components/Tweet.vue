@@ -54,12 +54,12 @@
         data(){
             return{
                 showModal: false,
-                likeCount: this.tweet.liked_by.length
+                likeCount: this.tweet.liked_by.length,
+                liked: this.tweet.isLiked,
             }
         },
         props: {
             tweet: Object,
-            liked: Boolean,
         },
         methods: {
             likeTweet(id){

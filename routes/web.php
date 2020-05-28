@@ -20,10 +20,17 @@ Route::get('/u/{handle}', function ($handle) {
     $user = \App\User::where('handle', $handle)->first();
     return view('profile', ['user' => $user]);
 });
+Route::get('/thread/{tweet_id}', function ($tweet_id) {
+    $tweet = \App\Tweet::with(['user', 'likedBy', 'replies'])->where('id', $tweet_id)->firstOrFail();
+    $tweet->replies = $tweet->replies()->with('user')->get();
+    dd($tweet->replies);
+    return view('thread', ['tweet' => $tweet]);
+});
 
 Route::get('/manage/profile', function () {
     return view('manage-profile');
 });
+
 
 Route::get('/logout', 'Auth\LoginController@logout');
 
