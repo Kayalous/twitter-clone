@@ -6,6 +6,7 @@ use App\Like;
 use App\Tweet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Intervention\Image\Facades\Image as Image;
 
@@ -15,6 +16,7 @@ class TweetController extends Controller
         $validatedData = $request->validate([
             'body' => 'required|max:250'
         ]);
+
         $tweet = Tweet::create(
             [
                 'user_id' => Auth::user()->id,
@@ -23,21 +25,35 @@ class TweetController extends Controller
         );
         if($request['attachment'])
         {
-            $image = $request['attachment'];
-            $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
-            $attachment = Image::make($request['attachment'])->save(public_path('attachments/').$name);
-            $attachment->resize(500,500);
-            $tweet->attachment = URL::to('/') . '/attachments/' . $name;
-            $tweet->save();
+            if($request['attachmentType'] === 'image')
+            {
+                $image = $request['attachment'];
+                $name = time().'.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+                $attachment = Image::make($request['attachment'])->save(storage_path('app/public/').$name);
+                $attachment->resize(500,500);
+                $tweet->attachment = URL::to('/') . '/storage/' . $name;
+                $tweet->attachment_type = 'image';
+                $tweet->save();
+            }
+            else{
+                $video = $request['attachment'];
+                $name = time().'.' . explode('/', explode(':', substr($video, 0, strpos($video, ';')))[1])[1];
+                $video = explode(',', $request['attachment'])[1];
+                $video = base64_decode($video);
+                $path = storage_path('app/public/').$name;
+                Storage::disk('public')->put($name, $video);
+                $tweet->attachment = URL::to('/') . '/storage/' . $name;
+                $tweet->attachment_type = 'video';
+                $tweet->save();
+            }
         }
-        //Oh god
-        $tweet = Tweet::with(['user', 'likedBy'])->where('id', $tweet->id)->first();
-        return response(['tweet'=>$tweet], 200);
+
+        return response('success', 200);
 
     }
 
     public function getAll(Request $request){
-        $tweets = Tweet::with(['user', 'likedBy'])->orderBy('created_at', 'desc')->paginate(10);
+        $tweets = Tweet::with(['user', 'likedBy', 'replies'])->orderBy('created_at', 'desc')->paginate(10);
         foreach ($tweets as $tweet){
             if(!$request['user_id'])
                 $isLiked = false;
@@ -49,7 +65,7 @@ class TweetController extends Controller
     }
 
     public function getUserTweets(Request $request){
-        $tweets = Tweet::where('user_id', $request['tweeter_id'])->with(['user', 'likedBy'])->orderBy('created_at', 'desc')->paginate(10);
+        $tweets = Tweet::where('user_id', $request['tweeter_id'])->with(['user', 'likedBy', 'replies'])->orderBy('created_at', 'desc')->paginate(10);
         foreach ($tweets as $tweet){
             if(!$request['user_id'])
                 $isLiked = false;

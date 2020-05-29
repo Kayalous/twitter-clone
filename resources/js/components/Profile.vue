@@ -51,7 +51,6 @@
                     .then(response => {
                         return response.json();
                     }).then(data => {
-                    console.log(data.data);
                     if(data.data.length === 0) {
                         this.continueInfiniteLoading = false;
                         this.endReached = true;

@@ -9,7 +9,7 @@
             </div>
             <div class="poster">
                 <a :href="'/u/' + tweet.user.handle" class="text-white inline-block font-semibold"><span class="hover:underline">{{tweet.user.name}}</span> <span class="text-gray-600 font-normal">{{tweet.user.handle}} · </span></a>
-                <a href="/@test/status/8625634" class="inline-block text-gray-600">{{ tweet.created_at | moment("from") }}</a>
+                <a :href="'/thread/' + tweet.id" class="inline-block text-gray-600">{{ tweet.created_at | moment("from") }}</a>
             </div>
         </div>
         <div class="tweet-body py-4">
@@ -17,16 +17,19 @@
         </div>
         <div class="px-20" v-if="tweet.attachment">
             <div class="tweet-attachments relative overflow-hidden rounded-md" style="padding-bottom: 66.66%">
-                <img class="absolute w-full h-full object-cover" :src="tweet.attachment" alt="Attachment" v-on:click="toggleModal">
+                <img class="absolute w-full h-full object-cover" :src="tweet.attachment" alt="Attachment" v-on:click="toggleModal" v-show="tweet.attachment_type === 'image'">
+                <video class="absolute w-full h-full object-cover" :src="tweet.attachment" width="100%" height="100%" controls autoplay muted v-show="tweet.attachment_type === 'video'">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
         <div class="tweet-actions">
             <div class="flex flex-no-wrap justify-between w-full px-6">
                 <div class="flex flex-no-wrap">
-                    <button class="group text-white p-2 transition ease-in-out duration-100 outline-none border-none hover:text-blue-400 mx-2 flex flex-no-wrap align-middle" type="button">
+                    <a :href="'/thread/' + tweet.id" class="group text-white p-2 transition ease-in-out duration-100 outline-none border-none hover:text-blue-400 mx-2 flex flex-no-wrap align-middle" type="button">
                         <i class="group-hover:bg-blue-600 group-hover:bg-opacity-25 rounded-full p-2" data-feather="message-circle" style="height: 50px; width: 50px; stroke-width: 1"></i>
-                        <span class="my-auto ml-2">12</span>
-                    </button>
+                        <span class="my-auto ml-2">{{replyCount}}</span>
+                    </a>
                     <button class="group text-white p-2 transition ease-in-out duration-100 outline-none border-none hover:text-red-400 mx-2 flex flex-no-wrap align-middle" type="button" v-on:click="likeTweet(tweet.id)" :class="{liked: liked}">
                         <i class="group-hover:bg-red-600 group-hover:bg-opacity-25 rounded-full p-2" data-feather="heart" style="height: 50px; width: 50px; stroke-width: 1"></i>
                         <span class="my-auto ml-2">{{likeCount}}</span>
@@ -55,6 +58,7 @@
             return{
                 showModal: false,
                 likeCount: this.tweet.liked_by.length,
+                replyCount: this.tweet.replies.length,
                 liked: this.tweet.isLiked,
             }
         },
@@ -74,9 +78,7 @@
                         user_id: this.$parent.user.id,
                         _token: window.Laravel.csrfToken,
                     })
-                        .then((res)=>{
-                            console.log(res.body)
-                        })
+                        .then((res)=>{})
                         .catch((err) => {console.log(err)}
                         );
             }

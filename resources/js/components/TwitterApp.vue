@@ -9,14 +9,17 @@
                     <textarea class="flex-grow bg-transparent border-none resize-none outline-none text-white text-xl" v-model="body" rows="2" maxlength="250" placeholder="What's happening?"></textarea>
                 </div>
                 <div class="tweet-attachments relative overflow-hidden rounded-md my-5 w-3/4 mx-auto" style="padding-bottom: 33.33%" :class="attachment ? '' : 'hidden'">
-                    <img class="absolute w-full h-full object-cover" src="#" alt="Attachment preview" id="img-preview">
+                    <img class="absolute w-full h-full object-cover" src="#" alt="Attachment preview" id="img-preview" v-show="attachmentType === 'image'">
+                    <video class="absolute w-full h-full object-cover" :src="videoPreview" width="100%" height="100%" controls v-show="attachmentType === 'video'">
+                        Your browser does not support the video tag.
+                    </video>
                     <button type="button" class="absolute top-0 right-0 mt-5 mr-5 border-0 bg-blue-900 rounded-full p-3 hover:bg-blue-700" v-on:click="removeAttachment"><i data-feather="x" class="text-gray-900" style="height: 30px; width: 30px; stroke-width: 2; "></i></button>
                 </div>
                 <div class="flex flex-no-wrap w-full justify-between align-middle p-4">
                     <div class="utilities">
                             <label class="cursor-pointer p-3 flex justify-center align-middle hover:bg-blue-900 text-white rounded-full transition ease-in-out duration-100 outline-none border-none text-blue-400">
                                 <i data-feather="image" style="height: 30px; width: 30px; stroke-width: 1"></i>
-                                <input type="file" class="hidden" id="attachment" v-on:change="onImageChange">
+                                <input type="file" class="hidden" id="attachment" accept="image/*, video/mp4" v-on:change="onImageChange">
                             </label>
                     </div>
                     <button type="submit" class="bg-blue-400 hover:bg-blue-700 text-white font-semibold py-2 px-8 rounded-full transition ease-in-out duration-100 outline-none border-none my-auto" :class="disableSubmission ? 'disabled' : '' " :disabled="disableSubmission">
@@ -64,6 +67,8 @@
                 endReached: false,
                 percentCompleted: 0,
                 attachment: '',
+                videoPreview: null,
+                attachmentType: '',
                 disableSubmission: true,
                 submitButtonLoading: false
             };
@@ -78,7 +83,9 @@
                 this.$http.post('/new/tweet', {
                     body: this.body.trim(),
                     _token: window.Laravel.csrfToken,
-                    attachment: this.attachment
+                    attachment: this.attachment,
+                    attachmentType: this.attachmentType
+
                 })
                 .then((res)=>{
                     this.body = "";
@@ -114,9 +121,9 @@
                 if (!files.length)
                     return;
 
-                if(files[0].size > 5000000){
+                if(files[0].size > 10000000){
                     this.$swal.fire({
-                        title: 'File is too big. (Max file size is 5MB.)',
+                        title: 'File is too big. (Max file size is 10MB.)',
                         icon: 'error',
                         toast:true,
                         position: "top",
@@ -133,8 +140,11 @@
                 let reader = new FileReader();
                 let vm = this;
                 reader.onload = (e) => {
+                    vm.attachmentType = this.getFileType(file.name);
+                    this.videoPreview = '';
+                    if(vm.attachmentType === 'video')
+                        this.videoPreview = URL.createObjectURL(file);
                     vm.attachment = e.target.result;
-
                     document.querySelector("#img-preview").src = e.target.result
                 };
                 reader.readAsDataURL(file);
@@ -146,6 +156,14 @@
             safeGetUserId(){
                 if(this.user) return this.user.id
                 return -1
+            },
+            getFileType(filename){
+                let name = filename.split('.').pop();
+                    let type;
+                if(name === 'mp4') type = 'video';
+                else type = 'image';
+
+                return type;
             }
         },
         watch:{

@@ -22,8 +22,6 @@ Route::get('/u/{handle}', function ($handle) {
 });
 Route::get('/thread/{tweet_id}', function ($tweet_id) {
     $tweet = \App\Tweet::with(['user', 'likedBy', 'replies'])->where('id', $tweet_id)->firstOrFail();
-    $tweet->replies = $tweet->replies()->with('user')->get();
-    dd($tweet->replies);
     return view('thread', ['tweet' => $tweet]);
 });
 
@@ -37,6 +35,7 @@ Route::get('/logout', 'Auth\LoginController@logout');
 
 
 Route::post('/new/tweet', 'TweetController@create');
+Route::post('/new/reply', 'ReplyController@create');
 Route::post('/like/tweet', 'LikeController@likeTweet');
 Route::post('/manage/profile', 'UserController@update');
 Auth::routes();

@@ -41,6 +41,7 @@ Vue.component('modal', require('./components/Modal.vue').default);
 Vue.component('profile', require('./components/Profile.vue').default);
 Vue.component('tweet', require('./components/Tweet.vue').default);
 Vue.component('thread', require('./components/Thread.vue').default);
+Vue.component('reply', require('./components/Reply.vue').default);
 Vue.component('InfiniteLoading', require('vue-infinite-loading'));
 
 /**
