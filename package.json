@@ -26,6 +26,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@fullhuman/postcss-purgecss": "^2.2.0",
         "tailwindcss": "^1.4.6",
         "vue-axios": "^2.1.5",
         "vue-infinite-loading": "^2.4.5",
