@@ -24,7 +24,7 @@
 <template>
     <nav class="w-full py-5">
         <div class="container mx-auto">
-            <ul class="flex t justify-between align-middle">
+            <ul class="flex justify-between align-middle">
                 <li class="rounded-lg text-white hover:bg-blue-100 transition ease-in-out duration-200 mx-1 my-auto"><a class="py-1 px-2 text-2xl font-bold text-blue-400 flex flex-no-wrap" href="/"><i class="my-auto mr-3" style="width: 30px; height: 30px; stroke-width: 1" data-feather="twitter"></i>Twitter</a></li>
                 <li class="text-blue-400 flex justify-center align-middle" v-if="!user">
                     <a class="rounded-md hover:bg-blue-100 transition ease-in-out duration-200 px-3 py-1 mx-1 my-auto" href="/login">Login</a>

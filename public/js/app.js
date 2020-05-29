@@ -24458,7 +24458,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("nav", { staticClass: "w-full py-5" }, [
     _c("div", { staticClass: "container mx-auto" }, [
-      _c("ul", { staticClass: "flex t justify-between align-middle" }, [
+      _c("ul", { staticClass: "flex justify-between align-middle" }, [
         _vm._m(0),
         _vm._v(" "),
         !_vm.user
