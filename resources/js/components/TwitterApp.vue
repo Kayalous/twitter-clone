@@ -85,7 +85,6 @@
                     _token: window.Laravel.csrfToken,
                     attachment: this.attachment,
                     attachmentType: this.attachmentType
-
                 })
                 .then((res)=>{
                     this.body = "";
@@ -145,6 +144,7 @@
                     if(vm.attachmentType === 'video')
                         this.videoPreview = URL.createObjectURL(file);
                     vm.attachment = e.target.result;
+                    console.log(vm.attachment);
                     document.querySelector("#img-preview").src = e.target.result
                 };
                 reader.readAsDataURL(file);

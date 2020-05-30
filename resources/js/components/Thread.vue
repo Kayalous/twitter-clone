@@ -93,7 +93,6 @@
                     _token: window.Laravel.csrfToken,
                 })
                     .then((res)=>{
-                        console.log(res)
                         this.body = "";
                         this.replies = [];
                         this.page = 1;
@@ -114,6 +113,7 @@
         },
     }
 </script>
+
 <style scoped>
     .disabled{
         cursor: not-allowed;

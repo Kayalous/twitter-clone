@@ -13,6 +13,7 @@ use Intervention\Image\Facades\Image as Image;
 class TweetController extends Controller
 {
     public function create(Request $request){
+
         $validatedData = $request->validate([
             'body' => 'required|max:250'
         ]);
@@ -21,8 +22,8 @@ class TweetController extends Controller
             [
                 'user_id' => Auth::user()->id,
                 'body' => $request['body'],
-            ]
-        );
+            ]);
+
         if($request['attachment'])
         {
             if($request['attachmentType'] === 'image')
@@ -51,6 +52,10 @@ class TweetController extends Controller
         return response('success', 200);
 
     }
+
+
+
+
 
     public function getAll(Request $request){
         $tweets = Tweet::with(['user', 'likedBy', 'replies'])->orderBy('created_at', 'desc')->paginate(10);

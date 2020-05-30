@@ -10,4 +10,11 @@ button:focus{
 .feather.active{
     fill: currentColor;
 }
+p{
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    hyphens: auto;
+    word-break: break-all;
+
+}
 

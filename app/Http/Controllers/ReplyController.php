@@ -15,15 +15,9 @@ class ReplyController extends Controller
     public function getTweetReplies(Request $request){
         $tweet = Tweet::where('id', $request['tweet_id'])->firstOrFail();
         $replies = $tweet->replies()->with('user')->orderBy('created_at', 'desc')->paginate(10);
-//        foreach ($replies as $reply){
-//            if(!$request['user_id'])
-//                $isLiked = false;
-//            else
-//                $isLiked = Like::userLikesTweet($request['user_id'], $tweet->id);
-//            $tweet->isLiked = $isLiked;
-//        }
         return response()->json($replies);
     }
+
     public function create(Request $request){
         $validatedData = $request->validate([
             'body' => 'required|max:250',
