@@ -3,7 +3,7 @@
         <div class="container mx-auto">
             <form v-on:submit="newTweet" class="new-tweet w-full px-3 py-2" v-if="user">
                 <div class="flex flex-no-wrap justify-center align-middle w-full">
-                    <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-indigo-900 mx-2 overflow-hidden flex">
+                    <div class="w-16 h-16 md:w-24 md:h-24 rounded-full bg-indigo-900 mx-2 overflow-hidden flex" style="min-height: 4rem; min-width: 4rem;">
                         <img class="w-full h-auto object-cover" :src="user.avatar" alt="Profile image">
                     </div>
                     <textarea class="flex-grow bg-transparent border-none resize-none outline-none text-white text-xl" v-model="body" rows="2" maxlength="250" placeholder="What's happening?"></textarea>

@@ -4,10 +4,10 @@
 
     <div class="tweet cursor-pointer rounded-lg hover:bg-blue-800 hover:bg-opacity-25 px-6 py-4 my-5 transition ease-in-out duration-100 animate__animated animate__fadeIn animate__faster">
         <div class="poster-info flex flex-no-wrap align-middle">
-            <div class="w-16 h-16 rounded-full bg-indigo-900 mx-2 overflow-hidden flex">
+            <div class="w-16 h-16 rounded-full bg-indigo-900 mx-2 overflow-hidden flex" style="min-height: 4rem; min-width: 4rem;">
                 <img class="w-full h-auto object-cover" :src="tweet.user.avatar" alt="Profile image">
             </div>
-            <div class="poster">
+            <div class="poster overflow-hidden whitespace-no-wrap">
                 <a :href="'/u/' + tweet.user.handle" class="text-white inline-block font-semibold"><span class="hover:underline">{{tweet.user.name}}</span> <span class="text-gray-600 font-normal">{{tweet.user.handle}} · </span></a>
                 <a :href="'/thread/' + tweet.id" class="inline-block text-gray-600">{{ tweet.created_at | moment("from") }}</a>
             </div>
@@ -15,7 +15,7 @@
         <div class="tweet-body py-4">
             <p class="text-white md:px-6">{{tweet.body}}</p>
         </div>
-        <div class="px-20" v-if="tweet.attachment">
+        <div class="md:px-20" v-if="tweet.attachment">
             <div class="tweet-attachments relative overflow-hidden rounded-md" style="padding-bottom: 66.66%">
                 <img class="absolute w-full h-full object-cover" :src="tweet.attachment" alt="Attachment" v-on:click="toggleModal" v-show="tweet.attachment_type === 'image'">
                 <video class="absolute w-full h-full object-cover" :src="tweet.attachment" width="100%" height="100%" controls autoplay muted v-show="tweet.attachment_type === 'video'">
@@ -25,8 +25,8 @@
         </div>
         <div class="tweet-actions">
             <div class="flex flex-no-wrap justify-between w-full px-6">
-                <div class="flex flex-no-wrap">
-                    <a :href="'/thread/' + tweet.id" class="group text-white p-2 transition ease-in-out duration-100 outline-none border-none hover:text-blue-400 mx-2 flex flex-no-wrap align-middle" type="button">
+                <div class="flex flex-no-wrap mx-auto md:mx-0">
+                    <a :href="'/thread/' + tweet.id" class="group bg-transparent text-white p-2 transition ease-in-out duration-100 outline-none border-none hover:text-blue-400 mx-2 flex flex-no-wrap align-middle" type="button">
                         <i class="group-hover:bg-blue-600 group-hover:bg-opacity-25 rounded-full p-2" data-feather="message-circle" style="height: 50px; width: 50px; stroke-width: 1"></i>
                         <span class="my-auto ml-2">{{replyCount}}</span>
                     </a>
@@ -40,7 +40,7 @@
         </div>
     </div>
     <modal :showing="showModal" @close="showModal = false">
-        <img class="absolute w-full h-auto" :src="tweet.attachment" alt="Attachment" v-if="tweet.attachment" v-on:click="toggleModal">
+        <img class="absolute w-full h-auto my-auto" :src="tweet.attachment" alt="Attachment" v-if="tweet.attachment" v-on:click="toggleModal">
     </modal>
     </div>
 </template>
