@@ -40,11 +40,7 @@
         </div>
     </div>
     <modal :showing="showModal" @close="showModal = false">
-        <div class="px-20" v-if="tweet.attachment">
-            <div class="tweet-attachments relative overflow-scroll rounded-md " style="padding-bottom: 66.66%">
-                <img class="absolute w-full h-auto" :src="tweet.attachment" alt="Attachment" v-on:click="toggleModal">
-            </div>
-        </div>
+        <img class="absolute w-full h-auto" :src="tweet.attachment" alt="Attachment" v-if="tweet.attachment" v-on:click="toggleModal">
     </modal>
     </div>
 </template>
