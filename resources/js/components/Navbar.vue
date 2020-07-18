@@ -34,10 +34,10 @@
     <nav class="w-full py-5">
         <div class="container mx-auto">
             <ul class="flex justify-between align-middle">
-                <li class="rounded-lg text-white hover:bg-blue-100 transition ease-in-out duration-200 mx-1 my-auto ml-5"><a class="py-1 px-2 text-2xl font-bold text-blue-400 flex flex-no-wrap" href="/"><i class="my-auto mr-3" style="width: 30px; height: 30px; stroke-width: 1" data-feather="twitter"></i>Twitter</a></li>
+                <li class="rounded-lg text-white hover:bg-blue-900 bg-opacity-75 transition ease-in-out duration-200 mx-1 my-auto ml-5"><a class="py-1 px-2 text-2xl font-bold text-blue-400 flex flex-no-wrap" href="/"><i class="my-auto mr-3" style="width: 30px; height: 30px; stroke-width: 1" data-feather="twitter"></i>Twitter</a></li>
                 <li class="text-blue-400 flex justify-center align-middle mr-5" v-if="!user">
-                    <a class="rounded-md hover:bg-blue-100 transition ease-in-out duration-200 px-3 py-1 mx-1 my-auto" href="/login">Login</a>
-                    <a class="rounded-md hover:bg-blue-100 transition ease-in-out duration-200 px-3 py-1 mx-1 my-auto" href="/register">Register</a>
+                    <a class="rounded-md hover:bg-blue-900 bg-opacity-75 transition ease-in-out duration-200 px-3 py-1 mx-1 my-auto" href="/login">Login</a>
+                    <a class="rounded-md hover:bg-blue-900 bg-opacity-75 transition ease-in-out duration-200 px-3 py-1 mx-1 my-auto" href="/register">Register</a>
                 </li>
                 <li class="flex justify-center align-middle relative hidden sm:block mr-5" v-if="user">
                     <button class="bg-transparent border-0 flex flex-no-wrap justify-center align-middle rounded-lg hover:bg-gray-700 px-4 py-2" @click="toggleDropdown" style="width: 350px">

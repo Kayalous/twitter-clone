@@ -2,7 +2,7 @@
     <div>
 
 
-    <div class="tweet cursor-pointer rounded-lg hover:bg-blue-800 hover:bg-opacity-25 px-6 py-4 my-5 transition ease-in-out duration-100 animate__animated animate__fadeIn animate__faster">
+    <div class="tweet cursor-pointer rounded-lg hover:bg-blue-900 bg-opacity-75 hover:bg-opacity-25 px-6 py-4 my-5 transition ease-in-out duration-100 animate__animated animate__fadeIn animate__faster">
         <div class="poster-info flex flex-no-wrap align-middle">
             <div class="w-16 h-16 rounded-full bg-indigo-900 mx-2 overflow-hidden flex" style="min-height: 4rem; min-width: 4rem;">
                 <img class="w-full h-auto object-cover" :src="tweet.user.avatar" alt="Profile image">

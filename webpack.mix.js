@@ -18,7 +18,7 @@ require('laravel-mix-purgecss');
 mix.js('resources/js/app.js', 'public/js')
    .postCss('resources/css/app.css', 'public/css')
    .tailwind('./tailwind.config.js')
-   .browserSync('https://twitter.dev')
+   .browserSync('https://twitter.test')
    .purgeCss({
     enabled: mix.inProduction(),
     folders: ['src', 'templates'],
